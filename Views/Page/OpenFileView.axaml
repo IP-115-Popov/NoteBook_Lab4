@@ -12,14 +12,14 @@
 	<UserControl.DataTemplates>
 		<DataTemplate DataType="{x:Type localM:FileItem}">
 			<Grid ColumnDefinitions="20, 250">
-				<Rectangle Grid.Column="0" Grid.ColumnSpan="2" Fill="Transparent" />
+				<Rectangle Grid.Column="0" Grid.ColumnSpan="2" DoubleTapped="TappDir" Fill="Transparent" />
 				<Image Grid.Column="0" Width="20" Height="30" Source="{Binding ImagePath, Converter={StaticResource variableImage}}" />
 				<TextBlock Grid.Column="1" Text="{Binding Name}"/>
 			</Grid>
 		</DataTemplate>
 	</UserControl.DataTemplates>
 	<Grid RowDefinitions="*,0.1*">
-		<ListBox Grid.Row="0" Items="{Binding Dir}" SelectedItems="{Binding }"/>
+		<ListBox Grid.Row="0" Items="{Binding Dir}" SelectedItem="{Binding SelectedDir}"/>
 		<Grid Grid.Row="1" ColumnDefinitions="*,*">
 			<Button Classes="b1" Grid.Column="0" Content="{Binding TextButton}"/>
 			<Button Classes="b1" Grid.Column="1" Content="Exit" Command="{Binding $parent[Window].DataContext.ExitFileButton}"/>

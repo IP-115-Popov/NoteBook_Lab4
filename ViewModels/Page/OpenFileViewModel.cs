@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using System.Reactive;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,10 +14,21 @@ namespace Notebook_Laba4.ViewModels.Page
 {
     internal class OpenFileViewModel : ViewModelBase
     {
+        private string path = "C:\\Users\\79130\\Desktop\\VM\\Notebook_Laba4";
         private string? textButton;
+        public FileItem selectedDir;
         public ObservableCollection<FileItem> Dir { get; set; } = new ObservableCollection<FileItem>();
+        public FileItem SelectedDir 
+        {
+            get => selectedDir;
+            set => this.RaiseAndSetIfChanged(ref selectedDir, value);
+        }
         public OpenFileViewModel(string flag)
         {
+            TappDir = ReactiveCommand.Create(() => {
+                path = SelectedDir.FullName;
+                UpdateDir();
+            });
             if (flag == "Open")
             {
                 TextButton = "Open";
@@ -25,19 +37,24 @@ namespace Notebook_Laba4.ViewModels.Page
             {
                 TextButton = "Save";
             }
-            string[] myFiles = Directory.GetFiles("C:\\Users\\79130\\Desktop\\VM\\Notebook_Laba4");
-            string[] myDirs = Directory.GetDirectories("C:\\Users\\79130\\Desktop\\VM\\Notebook_Laba4");
+            UpdateDir();
+        }
+        public ReactiveCommand<Unit, Unit> TappDir { get; set; }
+        private void UpdateDir()
+        {
+            Dir.Clear();
+            Dir.Add(new FileItem() { FullName = "Null", ImagePath = "Assets/pic/opendir.png", Name = ".."});
+            string[] myFiles = Directory.GetFiles(path);
+            string[] myDirs = Directory.GetDirectories(path);
             foreach (string mydir in myDirs)
             {
-                Dir.Add(new FileItem() { ImagePath = "Assets/pic/closedir.png", Name = System.IO.Path.GetFileName(mydir)});
+                Dir.Add(new FileItem() { FullName = mydir, ImagePath = "Assets/pic/closedir.png", Name = System.IO.Path.GetFileName(mydir) });
             }
-
             foreach (string f in myFiles)
             {
                 if (File.Exists(f))
                 {
-                    //FileInfo fileInf = new FileInfo(f);
-                    Dir.Add(new FileItem() { ImagePath = "Assets/pic/filefile.png", Name = System.IO.Path.GetFileName(f)});
+                    Dir.Add(new FileItem() { FullName = f, ImagePath = "Assets/pic/filefile.png", Name = System.IO.Path.GetFileName(f) });
                 }
             }
         }
