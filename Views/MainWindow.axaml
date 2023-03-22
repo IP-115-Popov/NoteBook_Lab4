@@ -1,0 +1,26 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:Notebook_Laba4.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="300" d:DesignHeight="400"
+		Height="400" Width="300"
+        x:Class="Notebook_Laba4.Views.MainWindow"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="Notebook_Laba4">		
+	<Design.DataContext>
+        <vm:MainWindowViewModel/>
+    </Design.DataContext>
+
+	<Window.Styles>
+		<Style Selector="Button.b1">
+			<Setter Property="Width" Value="150"/>
+			<Setter Property="Height" Value="40"/>
+			<Setter Property="VerticalContentAlignment" Value="Center"/>
+			<Setter Property="HorizontalContentAlignment" Value="Center"/>
+		</Style>
+	</Window.Styles>
+	
+	<ContentControl Content="{Binding ContentWindow}"/>
+
+</Window>
