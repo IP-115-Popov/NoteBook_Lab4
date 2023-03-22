@@ -26,7 +26,15 @@ namespace Notebook_Laba4.ViewModels.Page
         public OpenFileViewModel(string flag)
         {
             TappDir = ReactiveCommand.Create(() => {
-                path = SelectedDir.FullName;
+                if (SelectedDir.Name == "..")
+                {
+                    path = Directory.GetParent(path).ToString();
+                }
+                else
+                {
+                    path = SelectedDir.FullName;
+                }
+                
                 UpdateDir();
             });
             if (flag == "Open")
