@@ -15,8 +15,6 @@ namespace Notebook_Laba4.ViewModels
         private OpenFileViewModel openFileViewModel;     
         public MainWindowViewModel()
         {
-            //noteBookViewModel = 
-            //openFileViewModel = new OpenFileViewModel();
             contentWindow = new NoteBookViewModel();
             OpenFileButton = ReactiveCommand.Create(() =>
             {

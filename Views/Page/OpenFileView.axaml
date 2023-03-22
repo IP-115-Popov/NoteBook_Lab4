@@ -1,11 +1,25 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:vm="using:Notebook_Laba4.ViewModels"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:localM="clr-namespace:Notebook_Laba4.Models"
              mc:Ignorable="d" d:DesignWidth="300" d:DesignHeight="400"
              x:Class="Notebook_Laba4.Views.Page.OpenFileView">
+	<UserControl.Resources>
+		<vm:BitmapAssetValueConverter x:Key="variableImage"/>
+	</UserControl.Resources>
+	<UserControl.DataTemplates>
+		<DataTemplate DataType="{x:Type localM:FileItem}">
+			<Grid ColumnDefinitions="20, 250">
+				<Rectangle Grid.Column="0" Grid.ColumnSpan="2" Fill="Transparent" />
+				<Image Grid.Column="0" Width="20" Height="30" Source="{Binding ImagePath, Converter={StaticResource variableImage}}" />
+				<TextBlock Grid.Column="1" Text="{Binding Name}"/>
+			</Grid>
+		</DataTemplate>
+	</UserControl.DataTemplates>
 	<Grid RowDefinitions="*,0.1*">
-		<TextBox Grid.Row="0" Name="NoteText"/>
+		<ListBox Grid.Row="0" Items="{Binding Dir}"/>
 		<Grid Grid.Row="1" ColumnDefinitions="*,*">
 			<Button Classes="b1" Grid.Column="0" Content="{Binding TextButton}"/>
 			<Button Classes="b1" Grid.Column="1" Content="Exit" Command="{Binding $parent[Window].DataContext.ExitFileButton}"/>
