@@ -19,7 +19,7 @@
 		</DataTemplate>
 	</UserControl.DataTemplates>
 	<Grid RowDefinitions="*,0.1*">
-		<ListBox Grid.Row="0" Items="{Binding Dir}"/>
+		<ListBox Grid.Row="0" Items="{Binding Dir}" SelectedItems="{Binding }"/>
 		<Grid Grid.Row="1" ColumnDefinitions="*,*">
 			<Button Classes="b1" Grid.Column="0" Content="{Binding TextButton}"/>
 			<Button Classes="b1" Grid.Column="1" Content="Exit" Command="{Binding $parent[Window].DataContext.ExitFileButton}"/>

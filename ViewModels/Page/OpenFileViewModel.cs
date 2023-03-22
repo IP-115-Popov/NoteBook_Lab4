@@ -1,4 +1,5 @@
-﻿using Notebook_Laba4.Models;
+﻿using Avalonia.Controls.Shapes;
+using Notebook_Laba4.Models;
 using ReactiveUI;
 using System;
 using System.Collections.Generic;
@@ -24,12 +25,19 @@ namespace Notebook_Laba4.ViewModels.Page
             {
                 TextButton = "Save";
             }
-            string[] dirs = Directory.GetFiles("C:\\Users\\79130\\Desktop\\VM\\Notebook_Laba4");
-            foreach (string dir in dirs)
+            string[] myFiles = Directory.GetFiles("C:\\Users\\79130\\Desktop\\VM\\Notebook_Laba4");
+            string[] myDirs = Directory.GetDirectories("C:\\Users\\79130\\Desktop\\VM\\Notebook_Laba4");
+            foreach (string mydir in myDirs)
             {
-                if (File.Exists(dir))
+                Dir.Add(new FileItem() { ImagePath = "Assets/pic/closedir.png", Name = System.IO.Path.GetFileName(mydir)});
+            }
+
+            foreach (string f in myFiles)
+            {
+                if (File.Exists(f))
                 {
-                    Dir.Add(new FileItem() { ImagePath = "Assets/pic/filefile.png", Name = "file"});
+                    //FileInfo fileInf = new FileInfo(f);
+                    Dir.Add(new FileItem() { ImagePath = "Assets/pic/filefile.png", Name = System.IO.Path.GetFileName(f)});
                 }
             }
         }
