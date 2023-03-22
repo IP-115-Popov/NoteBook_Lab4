@@ -9,7 +9,10 @@ using System.Threading.Tasks;
 namespace Notebook_Laba4.ViewModels.Page
 {
     internal class NoteBookViewModel : ViewModelBase
-    {
+    {       
+        public NoteBookViewModel()
+        {
 
+        }       
     }
 }

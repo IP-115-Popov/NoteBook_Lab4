@@ -7,8 +7,8 @@
 	<Grid RowDefinitions="*,0.1*">
 		<TextBox Grid.Row="0" Name="NoteText"/>
 		<Grid Grid.Row="1" ColumnDefinitions="*,*">
-			<Button Classes="b1" Grid.Column="0" Content="Open"/>
-			<Button Classes="b1" Grid.Column="1" Content="Exit"/>
+			<Button Classes="b1" Grid.Column="0" Content="{Binding TextButton}"/>
+			<Button Classes="b1" Grid.Column="1" Content="Exit" Command="{Binding $parent[Window].DataContext.ExitFileButton}"/>
 		</Grid>
 	</Grid>
 </UserControl>

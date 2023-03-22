@@ -15,20 +15,25 @@ namespace Notebook_Laba4.ViewModels
         private OpenFileViewModel openFileViewModel;     
         public MainWindowViewModel()
         {
-            noteBookViewModel = new NoteBookViewModel();
-            openFileViewModel = new OpenFileViewModel();
-            contentWindow = noteBookViewModel;
+            //noteBookViewModel = 
+            //openFileViewModel = new OpenFileViewModel();
+            contentWindow = new NoteBookViewModel();
             OpenFileButton = ReactiveCommand.Create(() =>
             {
-                ContentWindow = openFileViewModel;
+                ContentWindow = new OpenFileViewModel("Open");
             });
             SaveFileButton = ReactiveCommand.Create(() =>
             {
-                ContentWindow = openFileViewModel;
+                ContentWindow = new OpenFileViewModel("Save");
+            });
+            ExitFileButton = ReactiveCommand.Create(() =>
+            {
+                ContentWindow = new NoteBookViewModel();
             });
         }
         public ReactiveCommand<Unit, Unit> OpenFileButton { get; set; }
         public ReactiveCommand<Unit, Unit> SaveFileButton { get; set; }
+        public ReactiveCommand<Unit, Unit> ExitFileButton { get; set; }
         public object ContentWindow
         {
             get => contentWindow; 
