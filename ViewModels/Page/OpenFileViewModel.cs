@@ -1,4 +1,6 @@
-﻿using Avalonia.Controls.Shapes;
+﻿using Avalonia.Controls;
+using Avalonia.Controls.Shapes;
+using Microsoft.VisualBasic;
 using Notebook_Laba4.Models;
 using ReactiveUI;
 using System;
@@ -9,6 +11,7 @@ using System.Linq;
 using System.Reactive;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Notebook_Laba4.ViewModels.Page
 {
@@ -23,12 +26,32 @@ namespace Notebook_Laba4.ViewModels.Page
             get => selectedDir;
             set => this.RaiseAndSetIfChanged(ref selectedDir, value);
         }
-        public OpenFileViewModel(string flag)
+       // public string? flag = null;
+        public OpenFileViewModel(string? flag)
         {
             TappDir = ReactiveCommand.Create(() => {
                 if (SelectedDir.Name == "..")
                 {
                     path = Directory.GetParent(path).ToString();
+                }
+                else if(System.IO.Path.GetExtension(path) == ".txt")
+                {
+                    if (TextButton == "Open")
+                    {
+                        using (StreamReader reader = new StreamReader(path))
+                        {
+                            string text = reader.ReadToEnd();
+
+                            //NoteBookViewModel();
+                        }
+                    }
+                    else if (TextButton == "Save")
+                    {
+                        using (StreamWriter writer = new StreamWriter(path, false))
+                        {
+                            writer.Write("CFHXC");
+                        }
+                    }
                 }
                 else
                 {

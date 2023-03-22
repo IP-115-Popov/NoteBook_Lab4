@@ -9,10 +9,17 @@ using System.Threading.Tasks;
 namespace Notebook_Laba4.ViewModels.Page
 {
     internal class NoteBookViewModel : ViewModelBase
-    {       
-        public NoteBookViewModel()
+    {
+        public string textTextBox;
+        public NoteBookViewModel(string myText = "")
         {
-
-        }       
+            TextTextBox = myText;
+        }
+        
+        public string TextTextBox
+        {
+            get => textTextBox;
+            set => this.RaiseAndSetIfChanged(ref textTextBox, value); 
+        }
     }
 }
