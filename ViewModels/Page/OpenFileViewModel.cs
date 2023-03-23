@@ -53,10 +53,12 @@ namespace Notebook_Laba4.ViewModels.Page
                         }
                         else if (TextButton == "Save")
                         {
-                            using (StreamWriter writer = new StreamWriter(path, false))
-                            {
-                                writer.Write("CFHXC");
-                            }
+                            //using (StreamWriter writer = new StreamWriter(path, false))
+                            //{
+                            //    writer.Write("CFHXC");
+                            //}
+                            //возврашяем путь к фаилу
+                            return path;
                         }
                     }
                     else

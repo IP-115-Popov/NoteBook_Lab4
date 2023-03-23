@@ -10,16 +10,16 @@ namespace Notebook_Laba4.ViewModels.Page
 {
     public class NoteBookViewModel : ViewModelBase
     {
-        public string textTextBox;
-        public NoteBookViewModel(string myText)
+        //public string? textTextBox;
+        public NoteBookViewModel(string? myText)
         {
-            TextTextBox = myText;
+           // TextTextBox = myText;
         }
         
-        public string TextTextBox
-        {
-            get => textTextBox;
-            set => this.RaiseAndSetIfChanged(ref textTextBox, value); 
-        }
+        //public string? TextTextBox
+        //{
+        //    get => textTextBox;
+        //    set => this.RaiseAndSetIfChanged(ref textTextBox, value); 
+        //}
     }
 }

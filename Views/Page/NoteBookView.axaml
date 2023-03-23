@@ -5,7 +5,7 @@
              mc:Ignorable="d" d:DesignWidth="300" d:DesignHeight="400"
              x:Class="Notebook_Laba4.Views.Page.NoteBookView">
 	<Grid RowDefinitions="*,0.1*">
-		<TextBox AcceptsReturn="True" Grid.Row="0" Name="NoteText" Text="{Binding TextTextBox}"/>
+		<TextBox AcceptsReturn="True" Grid.Row="0" Name="NoteText" Text="{Binding $parent[Window].DataContext.MainText}"/>
 		<Grid Grid.Row="1" ColumnDefinitions="*,*">
 			<Button Classes="b1" Grid.Column="0" Content="Open" Command="{Binding $parent[Window].DataContext.OpenFileButton}"/>
 			<Button Classes="b1" Grid.Column="1" Content="Save" Command="{Binding $parent[Window].DataContext.SaveFileButton}"/>
