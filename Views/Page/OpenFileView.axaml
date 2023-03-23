@@ -14,15 +14,16 @@
 			<Grid ColumnDefinitions="20, 250">
 				<Rectangle Grid.Column="0" Grid.ColumnSpan="2" DoubleTapped="TappDir" Fill="Transparent" />
 				<Image Grid.Column="0" Width="20" Height="30" Source="{Binding ImagePath, Converter={StaticResource variableImage}}" />
-				<TextBlock Grid.Column="1" Text="{Binding Name}"/>
+				<TextBlock Grid.Column="1" Text="{Binding NameItem}"/>
 			</Grid>
 		</DataTemplate>
 	</UserControl.DataTemplates>
-	<Grid RowDefinitions="*,0.1*">
-		<ListBox Grid.Row="0" Items="{Binding Dir}" SelectedItem="{Binding SelectedDir}"/>
-		<Grid Grid.Row="1" ColumnDefinitions="*,*">
-			<Button Classes="b1" Grid.Column="0" Content="{Binding TextButton}" Command="{Binding TappDir}"/>
-			<Button Classes="b1" Grid.Column="1" Content="Exit" Command="{Binding $parent[Window].DataContext.ExitFileButton}"/>
+	<Grid RowDefinitions="*,0.1*,0.1*">
+		<ListBox Name="fileListBox" Grid.Row="0" Items="{Binding Dir}" SelectedItem="{Binding SelectedDir}"/>
+		<TextBox Name="fileTextBox" Grid.Row="1" />
+		<Grid Grid.Row="2" ColumnDefinitions="*,*">
+			<Button Name="okButton" Classes="b1" Grid.Column="0" Content="{Binding TextButton}" Command="{Binding TappDir}"/>
+			<Button Name="cancelButton" Classes="b1" Grid.Column="1" Content="Exit" Command="{Binding $parent[Window].DataContext.ExitFileButton}"/>
 		</Grid>
 	</Grid>
 </UserControl>

@@ -43,7 +43,7 @@ namespace Notebook_Laba4.ViewModels.Page
                 //        return "";
                 //    });
                 TappDir = ReactiveCommand.Create<Unit, string>((str) => {         
-                if (SelectedDir.Name == "..")
+                if (SelectedDir.NameItem == "..")
                 {
                     path = Directory.GetParent(path).ToString();
                     UpdateDir();
@@ -92,18 +92,18 @@ namespace Notebook_Laba4.ViewModels.Page
         private void UpdateDir()
         {
             Dir.Clear();
-            Dir.Add(new FileItem() { FullName = "Null", ImagePath = "Assets/pic/opendir.png", Name = ".."});
+            Dir.Add(new FileItem() { FullName = "Null", ImagePath = "Assets/pic/opendir.png", NameItem = ".."});
             string[] myFiles = Directory.GetFiles(path);
             string[] myDirs = Directory.GetDirectories(path);
             foreach (string mydir in myDirs)
             {
-                Dir.Add(new FileItem() { FullName = mydir, ImagePath = "Assets/pic/closedir.png", Name = System.IO.Path.GetFileName(mydir) });
+                Dir.Add(new FileItem() { FullName = mydir, ImagePath = "Assets/pic/closedir.png", NameItem = System.IO.Path.GetFileName(mydir) });
             }
             foreach (string f in myFiles)
             {
                 if (File.Exists(f))
                 {
-                    Dir.Add(new FileItem() { FullName = f, ImagePath = "Assets/pic/filefile.png", Name = System.IO.Path.GetFileName(f) });
+                    Dir.Add(new FileItem() { FullName = f, ImagePath = "Assets/pic/filefile.png", NameItem = System.IO.Path.GetFileName(f) });
                 }
             }
         }

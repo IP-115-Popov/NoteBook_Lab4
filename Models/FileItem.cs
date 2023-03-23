@@ -9,7 +9,7 @@ namespace Notebook_Laba4.Models
     public class FileItem
     {
         public string ImagePath { get; set; }
-        public string Name { get; set; }
+        public string NameItem { get; set; }
         public string FullName { get; set; }
     }
     internal class myDirectory : FileItem
