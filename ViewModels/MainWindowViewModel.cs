@@ -18,7 +18,7 @@ namespace Notebook_Laba4.ViewModels
        // private OpenFileViewModel openFileViewModel;     
         public MainWindowViewModel()
         {    
-            contentWindow = noteBookViewModel = new NoteBookViewModel("");
+            contentWindow = noteBookViewModel = new NoteBookViewModel();
             OpenFileButton = ReactiveCommand.Create(() =>
             {
                 OpenFileViewModel openFileViewModel = new OpenFileViewModel("Open");
@@ -27,7 +27,7 @@ namespace Notebook_Laba4.ViewModels
                 openFileViewModel.TappDir.Subscribe(
                         returnedSrt =>
                         {
-                            ContentWindow = new NoteBookViewModel(returnedSrt);
+                            ContentWindow = new NoteBookViewModel();
                             MainText = returnedSrt;
                         }
                     );
@@ -50,7 +50,7 @@ namespace Notebook_Laba4.ViewModels
             });
             ExitFileButton = ReactiveCommand.Create(() =>
             {
-                ContentWindow = new NoteBookViewModel(MainText);
+                ContentWindow = new NoteBookViewModel();
             });
         }
         public ReactiveCommand<Unit, Unit> OpenFileButton { get; set; }

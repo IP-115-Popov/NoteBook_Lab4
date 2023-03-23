@@ -29,9 +29,20 @@ namespace Notebook_Laba4.ViewModels.Page
         }
         public OpenFileViewModel(string? flag)
         {
-            TappDir = ReactiveCommand.Create<Unit, string>((str) => {
-                //включаем в путь выбраный элемент
-               // path = SelectedDir.FullName;             
+                //SaveOrOpen = ReactiveCommand.Create<Unit, string>(
+                //    (str) => 
+                //    {
+                //        if (TextButton == "Open")
+                //        {
+
+                //        }
+                //        else if (TextButton == "Save")
+                //        {
+
+                //        }
+                //        return "";
+                //    });
+                TappDir = ReactiveCommand.Create<Unit, string>((str) => {         
                 if (SelectedDir.Name == "..")
                 {
                     path = Directory.GetParent(path).ToString();
@@ -53,10 +64,6 @@ namespace Notebook_Laba4.ViewModels.Page
                         }
                         else if (TextButton == "Save")
                         {
-                            //using (StreamWriter writer = new StreamWriter(path, false))
-                            //{
-                            //    writer.Write("CFHXC");
-                            //}
                             //возврашяем путь к фаилу
                             return path;
                         }
@@ -80,6 +87,7 @@ namespace Notebook_Laba4.ViewModels.Page
             }
             UpdateDir();
         }
+        public ReactiveCommand<Unit, string> SaveOrOpen { get; set; }
         public ReactiveCommand<Unit, string> TappDir { get; set; }
         private void UpdateDir()
         {
