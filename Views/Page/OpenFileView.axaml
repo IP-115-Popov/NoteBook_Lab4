@@ -20,7 +20,7 @@
 	</UserControl.DataTemplates>
 	<Grid RowDefinitions="*,0.1*,0.1*">
 		<ListBox Name="fileListBox" Grid.Row="0" Items="{Binding Dir}" SelectedItem="{Binding SelectedDir}"/>
-		<TextBox Name="fileTextBox" Grid.Row="1" />
+		<TextBox Name="fileTextBox" Grid.Row="1" Text="{Binding FindFile}"/>
 		<Grid Grid.Row="2" ColumnDefinitions="*,*">
 			<Button Name="okButton" Classes="b1" Grid.Column="0" Content="{Binding TextButton}" Command="{Binding TappDir}"/>
 			<Button Name="cancelButton" Classes="b1" Grid.Column="1" Content="Exit" Command="{Binding $parent[Window].DataContext.ExitFileButton}"/>

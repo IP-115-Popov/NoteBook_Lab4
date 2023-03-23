@@ -18,6 +18,7 @@ namespace Notebook_Laba4.ViewModels.Page
 {
     public class OpenFileViewModel : ViewModelBase
     {
+        private string findFile;
         private string path = "C:\\Users\\79130\\Desktop\\VM\\Notebook_Laba4";
         private string? textButton;
         public FileItem selectedDir;
@@ -25,57 +26,50 @@ namespace Notebook_Laba4.ViewModels.Page
         public FileItem SelectedDir 
         {
             get => selectedDir;
-            set => this.RaiseAndSetIfChanged(ref selectedDir, value);
+            set
+            { 
+                this.RaiseAndSetIfChanged(ref selectedDir, value);
+                FindFile = SelectedDir.NameItem;
+            }
         }
+
         public OpenFileViewModel(string? flag)
         {
-                //SaveOrOpen = ReactiveCommand.Create<Unit, string>(
-                //    (str) => 
-                //    {
-                //        if (TextButton == "Open")
-                //        {
-
-                //        }
-                //        else if (TextButton == "Save")
-                //        {
-
-                //        }
-                //        return "";
-                //    });
-                TappDir = ReactiveCommand.Create<Unit, string>((str) => {         
-                if (SelectedDir.NameItem == "..")
-                {
-                    path = Directory.GetParent(path).ToString();
-                    UpdateDir();
-                }
-                else
-                {
-                    //включаем в путь выбраный элемент
-                    path = SelectedDir.FullName;
-                    string testa = System.IO.Path.GetExtension(path);
-                    if (testa == ".txt")
+                TappDir = ReactiveCommand.Create<Unit, string>((str) =>
+                {                  
+                    if (SelectedDir.NameItem == "..")
                     {
-                        if (TextButton == "Open")
-                        {
-                            using (StreamReader reader = new StreamReader(path))
-                            {
-                                return reader.ReadToEnd();
-                            }
-                        }
-                        else if (TextButton == "Save")
-                        {
-                            //возврашяем путь к фаилу
-                            return path;
-                        }
+                        path = Directory.GetParent(path).ToString();
+                        UpdateDir();
                     }
                     else
                     {
-                        //выбраный элемент эта папка которую мы уже включити в путь 
-                        //перехзагружаемся в выбраной папке
-                        UpdateDir();
-                    }
-                }                   
-                return "";
+                        //включаем в путь выбраный элемент
+                        path = SelectedDir.FullName;
+                        string testa = System.IO.Path.GetExtension(path);
+                        if (testa == ".txt")
+                        {
+                            if (TextButton == "Open")
+                            {
+                                using (StreamReader reader = new StreamReader(path))
+                                {
+                                    return reader.ReadToEnd();
+                                }
+                            }
+                            else if (TextButton == "Save")
+                            {
+                                //возврашяем путь к фаилу
+                                return path;
+                            }
+                        }
+                        else
+                        {
+                            //выбраный элемент эта папка которую мы уже включити в путь 
+                            //перехзагружаемся в выбраной папке
+                            UpdateDir();
+                        }
+                    }                   
+                    return "";
             });
             if (flag == "Open")
             {
@@ -111,6 +105,11 @@ namespace Notebook_Laba4.ViewModels.Page
         {
             get => textButton;
             set { this.RaiseAndSetIfChanged(ref textButton, value); }
+        }
+        private string FindFile
+        {
+            get => findFile;
+            set { this.RaiseAndSetIfChanged(ref findFile, value); }
         }
     }
 }
