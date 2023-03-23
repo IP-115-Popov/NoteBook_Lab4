@@ -27,8 +27,11 @@ namespace Notebook_Laba4.ViewModels
                 openFileViewModel.TappDir.Subscribe(
                         returnedSrt =>
                         {
-                            ContentWindow = new NoteBookViewModel();
-                            MainText = returnedSrt;
+                            if (returnedSrt != "")
+                            {
+                                ContentWindow = new NoteBookViewModel();
+                                MainText = returnedSrt;
+                            }
                         }
                     );
  
@@ -41,10 +44,14 @@ namespace Notebook_Laba4.ViewModels
                 openFileViewModel.TappDir.Subscribe(
                     returnedSrt => 
                     {
-                        using (StreamWriter writer = new StreamWriter(returnedSrt, false))
+                        if (returnedSrt != "")
                         {
-                            writer.Write(MainText);
-                        }
+                            using (StreamWriter writer = new StreamWriter(returnedSrt, false))
+                            {
+                                writer.Write(MainText);
+                                ContentWindow = new NoteBookViewModel();
+                            }
+                        }                      
                     }
                 );
             });

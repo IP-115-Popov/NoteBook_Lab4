@@ -18,8 +18,8 @@ namespace Notebook_Laba4.ViewModels.Page
 {
     public class OpenFileViewModel : ViewModelBase
     {
-        private string findFile;
-        private string path = "C:\\Users\\79130\\Desktop\\VM\\Notebook_Laba4";
+        private string? findFile;
+        private string path = Directory.GetCurrentDirectory();//"C:\\Users\\79130\\Desktop\\VM\\Notebook_Laba4";// Directory.GetCurrentDirectory();
         private string? textButton;
         public FileItem selectedDir;
         public ObservableCollection<FileItem> Dir { get; set; } = new ObservableCollection<FileItem>();
@@ -29,7 +29,11 @@ namespace Notebook_Laba4.ViewModels.Page
             set
             { 
                 this.RaiseAndSetIfChanged(ref selectedDir, value);
-                FindFile = SelectedDir.NameItem;
+                if (SelectedDir != null)
+                {
+                    FindFile = SelectedDir.NameItem;
+                }
+                
             }
         }
 
@@ -37,15 +41,33 @@ namespace Notebook_Laba4.ViewModels.Page
         {
                 TappDir = ReactiveCommand.Create<Unit, string>((str) =>
                 {                  
-                    if (SelectedDir.NameItem == "..")
+                    if (SelectedDir != null && SelectedDir.NameItem == "..")
                     {
                         path = Directory.GetParent(path).ToString();
                         UpdateDir();
                     }
                     else
                     {
-                        //включаем в путь выбраный элемент
-                        path = SelectedDir.FullName;
+                        if (FindFile != null)
+                        {
+                            //вычесляем Директорию файла
+                            //string pathPart1 = Directory.GetParent(path).ToString();
+                            path = path + "\\" + FindFile;
+                            //создаём файл если его небыло
+                            //if (!Directory.Exists(path)) 
+                            //{
+                            //    File.Create(path);
+                            //}
+                        }
+                        else
+                        {
+                            if (SelectedDir != null)
+                            {
+                                path = SelectedDir.FullName;
+                            }
+                            else { return ""; }
+                        }
+                        //включаем в путь выбраный элемент               
                         string testa = System.IO.Path.GetExtension(path);
                         if (testa == ".txt")
                         {
@@ -106,7 +128,7 @@ namespace Notebook_Laba4.ViewModels.Page
             get => textButton;
             set { this.RaiseAndSetIfChanged(ref textButton, value); }
         }
-        private string FindFile
+        private string? FindFile
         {
             get => findFile;
             set { this.RaiseAndSetIfChanged(ref findFile, value); }
