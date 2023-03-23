@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 
 namespace Notebook_Laba4.ViewModels.Page
 {
-    internal class NoteBookViewModel : ViewModelBase
+    public class NoteBookViewModel : ViewModelBase
     {
         public string textTextBox;
-        public NoteBookViewModel(string myText = "")
+        public NoteBookViewModel(string myText)
         {
             TextTextBox = myText;
         }

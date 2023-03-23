@@ -3,6 +3,7 @@ using ReactiveUI;
 using System;
 using System.Collections.Generic;
 using System.Reactive;
+using System.Reactive.Linq;
 using System.Reflection.Metadata;
 using System.Text;
 
@@ -10,15 +11,26 @@ namespace Notebook_Laba4.ViewModels
 {
     public class MainWindowViewModel : ViewModelBase
     {
+        private string? mainText = "Hello"; 
         private object contentWindow;
         private NoteBookViewModel noteBookViewModel;
-        private OpenFileViewModel openFileViewModel;     
+       // private OpenFileViewModel openFileViewModel;     
         public MainWindowViewModel()
-        {
-            contentWindow = new NoteBookViewModel();
+        {    
+            contentWindow = noteBookViewModel = new NoteBookViewModel(mainText);
             OpenFileButton = ReactiveCommand.Create(() =>
             {
-                ContentWindow = new OpenFileViewModel("Open");
+                OpenFileViewModel openFileViewModel = new OpenFileViewModel("Open");
+                ContentWindow = openFileViewModel;
+
+
+                openFileViewModel.TappDir.Subscribe(
+                        returnedSrt =>
+                        {
+                            ContentWindow = new NoteBookViewModel(returnedSrt);
+                        }
+                    );
+ 
             });
             SaveFileButton = ReactiveCommand.Create(() =>
             {
@@ -26,7 +38,7 @@ namespace Notebook_Laba4.ViewModels
             });
             ExitFileButton = ReactiveCommand.Create(() =>
             {
-                ContentWindow = new NoteBookViewModel();
+                ContentWindow = new NoteBookViewModel(mainText);
             });
         }
         public ReactiveCommand<Unit, Unit> OpenFileButton { get; set; }

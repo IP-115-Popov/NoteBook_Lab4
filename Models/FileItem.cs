@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Notebook_Laba4.Models
 {
-    internal class FileItem
+    public class FileItem
     {
         public string ImagePath { get; set; }
         public string Name { get; set; }

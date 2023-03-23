@@ -1,5 +1,6 @@
 ﻿using Avalonia.Controls;
 using Avalonia.Controls.Shapes;
+using DynamicData.Tests;
 using Microsoft.VisualBasic;
 using Notebook_Laba4.Models;
 using ReactiveUI;
@@ -15,7 +16,7 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace Notebook_Laba4.ViewModels.Page
 {
-    internal class OpenFileViewModel : ViewModelBase
+    public class OpenFileViewModel : ViewModelBase
     {
         private string path = "C:\\Users\\79130\\Desktop\\VM\\Notebook_Laba4";
         private string? textButton;
@@ -26,39 +27,46 @@ namespace Notebook_Laba4.ViewModels.Page
             get => selectedDir;
             set => this.RaiseAndSetIfChanged(ref selectedDir, value);
         }
-       // public string? flag = null;
         public OpenFileViewModel(string? flag)
         {
-            TappDir = ReactiveCommand.Create(() => {
+            TappDir = ReactiveCommand.Create<Unit, string>((str) => {
+                //включаем в путь выбраный элемент
+               // path = SelectedDir.FullName;             
                 if (SelectedDir.Name == "..")
                 {
                     path = Directory.GetParent(path).ToString();
-                }
-                else if(System.IO.Path.GetExtension(path) == ".txt")
-                {
-                    if (TextButton == "Open")
-                    {
-                        using (StreamReader reader = new StreamReader(path))
-                        {
-                            string text = reader.ReadToEnd();
-
-                            //NoteBookViewModel();
-                        }
-                    }
-                    else if (TextButton == "Save")
-                    {
-                        using (StreamWriter writer = new StreamWriter(path, false))
-                        {
-                            writer.Write("CFHXC");
-                        }
-                    }
+                    UpdateDir();
                 }
                 else
                 {
+                    //включаем в путь выбраный элемент
                     path = SelectedDir.FullName;
-                }
-                
-                UpdateDir();
+                    string testa = System.IO.Path.GetExtension(path);
+                    if (testa == ".txt")
+                    {
+                        if (TextButton == "Open")
+                        {
+                            using (StreamReader reader = new StreamReader(path))
+                            {
+                                return reader.ReadToEnd();
+                            }
+                        }
+                        else if (TextButton == "Save")
+                        {
+                            using (StreamWriter writer = new StreamWriter(path, false))
+                            {
+                                writer.Write("CFHXC");
+                            }
+                        }
+                    }
+                    else
+                    {
+                        //выбраный элемент эта папка которую мы уже включити в путь 
+                        //перехзагружаемся в выбраной папке
+                        UpdateDir();
+                    }
+                }                   
+                return "";
             });
             if (flag == "Open")
             {
@@ -70,7 +78,7 @@ namespace Notebook_Laba4.ViewModels.Page
             }
             UpdateDir();
         }
-        public ReactiveCommand<Unit, Unit> TappDir { get; set; }
+        public ReactiveCommand<Unit, string> TappDir { get; set; }
         private void UpdateDir()
         {
             Dir.Clear();
